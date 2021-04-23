@@ -17,13 +17,13 @@ def api_endpoint():
 	# results=collection.find()
 	# print(mongo.db.getCollectionNames())
 	# print(DATABASE_URL)
-	results=list(mongo.db.everything_14ers_db.find())
-	for each_result in results[:5]: 
-		print(each_result.__dict__)
+	results=list(mongo.db.everything_14ers_db.find_one())
+	# for each_result in results[:5]: 
+	# 	print(each_result.__dict__)
 	# print(results[0])
 	# return jsonify([each_result['name'] for each_result in results])
-
-	return len(results)
+	print(results.__dict__)
+	return results
 
 # @app.route('/insert')
 # def insert():
