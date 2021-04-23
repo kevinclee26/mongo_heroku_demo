@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 import os
 from dotenv import load_dotenv
-from c import PyMongo
+from flask_pymong import PyMongo
 
 load_dotenv()
 
