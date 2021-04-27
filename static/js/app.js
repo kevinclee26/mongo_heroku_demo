@@ -26,6 +26,7 @@ d3.json("/get_token").then(key=>{
 	        iconAnchor:   [cnt_launch/2, cnt_launch/2], // point of the icon which will correspond to marker's location
 	    });
 	}
+	
     d3.json('/cnt_launches_per_site').then(launchpads=>{
     	var launchpad_markers=[]
     	launchpads.forEach(launchpad=>{

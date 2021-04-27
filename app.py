@@ -33,15 +33,26 @@ def cnt_launches_per_site():
 	results=client.mongo_db.launches.aggregate([
 		{'$group': {'_id': '$launch_site.site_id', 
 					'count': {'$sum': 1}}}, 
-		{'$lookup':{'from': "launchpads",
-			       'localField': "_id", 
-			       'foreignField': "site_id",
-			       'as': "launch_site"}}, 
+		{'$lookup': {'from': "launchpads",
+			        'localField': "_id", 
+			        'foreignField': "site_id",
+			        'as': "launch_site"}}, 
+		{'$unwind': '$launch_site'}, 
 		{'$project': {'_id': 0, 
 					  'launch_site': {'_id': 0},  
 					  'launch_site': {'location': 1, 'site_id': 1}, 
-					  'count': 1}}, 
-		{'$unwind': '$launch_site'}])
+					  'count': 1}}])
+	return jsonify(list(results))
+
+@app.route('/all_launches_timeline')
+def all_launches_timeline(): 
+	results=client.mongo_db.launches.aggregate([
+		{'$match': {"links.mission_patch_small": { 
+                		"$exists": True, 
+                		'$ne': None}}}, 
+		{'$group': {'_id': {'year': {'$substr': ['$launch_date_utc', 0, 4]},
+							'month': {'$substr': ['$launch_date_utc', 5, 2]}},
+					'launches': {'$push': '$links.mission_patch_small'}}}]) 
 	return jsonify(list(results))
 
 @app.route('/all_launchpads')
