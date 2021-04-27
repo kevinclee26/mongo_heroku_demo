@@ -1,34 +1,73 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template, redirect
 import os
 from dotenv import load_dotenv
-from flask_pymongo import PyMongo
+import requests
+import pymongo
 
 load_dotenv()
 
-DATABASE_URL=os.environ.get('DATABASE_URL')
-
 app=Flask(__name__)
-app.config['MONGO_URI'] = DATABASE_URL
-mongo = PyMongo(app)
+
+DATABASE_URL=os.environ.get('DATABASE_URL') or 'mongodb://localhost:27017'
+
+client = pymongo.MongoClient(DATABASE_URL)
 
 @app.route('/')
-def api_endpoint():
-	# mars = mongo.db.mars.find_one()
-	# results=collection.find()
-	# print(mongo.db.getCollectionNames())
-	# print(DATABASE_URL)
-	results=list(mongo.db.everything_14ers_db.find_one())
-	# for each_result in results[:5]: 
-	# 	print(each_result.__dict__)
-	# print(results[0])
-	# return jsonify([each_result['name'] for each_result in results])
-	print(results.__dict__)
-	return results
+def home():
+	return render_template('index.html')
 
-# @app.route('/insert')
-# def insert():
-# 	mongo.db.kevin_test_thank_you.insert({'name': 'this is a test'})
-# 	return 'SUCCESS'
+@app.route('/all_launches')
+def launches(): 
+	results=client.mongo_db.launches.aggregate([
+		{'$lookup':{'from': "launchpads",
+			       'localField': "launch_site.site_id", 
+			       'foreignField': "site_id",
+			       'as': "launch_site"}}, 
+		{'$project': {'_id': 0, 
+					  'launch_site': {'_id': 0}}},  
+		{'$unwind': '$launch_site'}])
+	return jsonify(list(results))
+
+@app.route('/cnt_launches_per_site')
+def cnt_launches_per_site(): 
+	results=client.mongo_db.launches.aggregate([
+		{'$group': {'_id': '$launch_site.site_id', 
+					'count': {'$sum': 1}}}, 
+		{'$lookup':{'from': "launchpads",
+			       'localField': "_id", 
+			       'foreignField': "site_id",
+			       'as': "launch_site"}}, 
+		{'$project': {'_id': 0, 
+					  'launch_site': {'_id': 0},  
+					  'launch_site': {'location': 1, 'site_id': 1}, 
+					  'count': 1}}, 
+		{'$unwind': '$launch_site'}])
+	return jsonify(list(results))
+
+@app.route('/all_launchpads')
+def launchpads():
+	results=client.mongo_db.launchpads.find({}, {'_id': 0})
+	return jsonify(list(results))
+	
+@app.route('/get_token')
+def get_token():
+	return jsonify({'mapbox_token': os.environ.get('mapbox_token') or ''})
+
+@app.route('/refresh')
+def refresh():
+	client.mongo_db.launches.drop()
+	launches_url='https://api.spacexdata.com/v3/launches'
+	response=requests.get(launches_url)
+	data=response.json()
+	client.mongo_db.launches.insert(data)
+	client.mongo_db.launchpads.drop()
+	launchpads_url='https://api.spacexdata.com/v3/launchpads'
+	response=requests.get(launchpads_url)
+	data=response.json()
+	client.mongo_db.launchpads.insert(data)
+	# return 'SUCCESS'
+	print('SUCCESS')
+	return redirect('/')
 
 if __name__=='__main__': 
 	app.run()
