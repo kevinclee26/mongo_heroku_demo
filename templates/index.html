@@ -3,18 +3,20 @@
 
 <head>
     <title>SpaceX!</title>
-     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-	<h1>SpaceX</h1>
-	<!-- <div id="mapid"></div> -->
-	<script>
-		var icon_path="{{ url_for('static', filename='img/icons8-launchpad.svg')}}"
-	</script>
-	<!-- Make sure you put this AFTER Leaflet's CSS -->
-	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+	<h1 class='rainbow-text'>Every SpaceX Mission</h1>
+	<svg width="1600" height="400">
+    	<defs>
+			<pattern id="background" patternUnits="userSpaceOnUse" x="0" y="0" width="1600" height="400">
+				<image xlink:href="{{url_for('static', filename='img/background_fit.png')}}" width="1600" height="400"/>
+			</pattern>
+		</defs>
+		<path d="M0,0 l0,400 l1600,0 l0,-400 l-1600,0" fill="url(#background)" />
+	</svg>
 	<script src="{{ url_for('static', filename='js/chart.js') }}"></script>
 </body>
 </html>
