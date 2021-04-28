@@ -108,6 +108,7 @@ d3.json("/all_launches_timeline").then(function(launch_data) {
   // Step 2: Add an onmouseover event to display a tooltip
   // ========================================================
   groups.selectAll('image').on("click", function(e, d) {
+    toolTip.html('')
     toolTip.style("display", "block")
            .style("left", (event.pageX - 50) + "px")
            .style("top", (event.pageY - 100 )+ "px")
@@ -130,7 +131,6 @@ d3.json("/all_launches_timeline").then(function(launch_data) {
     })
     // Step 3: Add an onmouseout event to make the tooltip invisible
   toolTip.on("mouseleave", function() {
-    toolTip.html('')
     toolTip.style("display", "none");
   });
 }).catch(function(error) {
