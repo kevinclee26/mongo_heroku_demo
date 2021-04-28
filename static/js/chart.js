@@ -119,6 +119,7 @@ d3.json("/all_launches_timeline").then(function(launch_data) {
     toolTip.append('hr')
     toolTip.append('a')
             .attr('href', d.wikipedia)
+            .attr('target', '_blank')
             .append('p')
             .text('Wikipedia')
     toolTip.append('a')
