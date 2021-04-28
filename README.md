@@ -63,8 +63,11 @@
 
 [![Product Name Screen Shot][product-screenshot]][product-url]
 This project originally started as a demonstration of building a Web Application to store and expose Data stored in a MongoDB Cluster via a Web API. 
+
 The project expanded to building out a Web Application that consumes Data from said API. 
+
 The Data comes from an open-source API related to SpaceX Launch Missions. 
+
 Big Thanks to the people at SpaceX for Inspiring the Future of Exploration
 
 ### Built With
