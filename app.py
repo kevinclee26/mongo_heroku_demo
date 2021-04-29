@@ -6,8 +6,7 @@ import os
 import pymongo
 
 load_dotenv() # use dotenv to hide sensitive credential as environment variables
-# DATABASE_URL=os.environ.get('DATABASE_URL') # get connection url from environment
-DATABASE_URL='mongodb+srv://user:ZOCXZ2R6eN2q5VpD@mongo-heroku-cluster-we.kyrhz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+DATABASE_URL=os.environ.get('DATABASE_URL') # get connection url from environment
 
 client=pymongo.MongoClient(DATABASE_URL) # establish connection with database
 
