@@ -14,11 +14,11 @@ mongo_db=client.db # assign database to mongo_db
 
 app=Flask(__name__)
 
-@app.route('/')
-def index(): 
-	return 'Use /all_launches_timeline'
+# @app.route('/')
+# def index(): 
+# 	return 'Use /all_launches_timeline'
 
-@app.route('/dashboard/')
+@app.route('/')
 def dashboard(): 
 	return render_template('index.html')
 
