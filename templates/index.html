@@ -9,13 +9,13 @@
 </head>
 <body>
 	<h1 class='rainbow-text'>Every SpaceX Mission</h1>
-	<svg width="1600" height="400">
+	<svg width="800" height="200">
     	<defs>
-			<pattern id="background" patternUnits="userSpaceOnUse" x="0" y="0" width="1600" height="400">
-				<image xlink:href="{{url_for('static', filename='img/background_fit.png')}}" width="1600" height="400"/>
+			<pattern id="background" patternUnits="userSpaceOnUse" x="0" y="0" width="800" height="200">
+				<image xlink:href="{{url_for('static', filename='img/background_fit.png')}}" width="800" height="200"/>
 			</pattern>
 		</defs>
-		<path d="M0,0 l0,400 l1600,0 l0,-400 l-1600,0" fill="url(#background)" />
+		<path d="M0,0 l0,200 l800,0 l0,-200 l-800,0" fill="url(#background)" />
 	</svg>
 	<script src="{{ url_for('static', filename='js/chart.js') }}"></script>
 </body>

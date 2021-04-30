@@ -1,6 +1,6 @@
 // https://developer.mongodb.com/how-to/use-atlas-on-heroku/
 // Define SVG area dimensions
-var svgWidth = 1600;
+var svgWidth = 800;
 // var svgHeight = 300;
 var svgHeight = svgWidth/4;
 
@@ -50,7 +50,7 @@ d3.json("/all_launches_timeline").then(function(launch_data) {
 
   // Create two new functions passing our scales in as arguments
   // These will be used to create the chart's axes
-  var bottomAxis = d3.axisBottom(xTimeScale);
+  var bottomAxis = d3.axisBottom(xTimeScale).ticks(d3.max(launch_data, data => data._id.year)-d3.min(launch_data, data => data._id.year));
   var leftAxis = d3.axisLeft(yLinearScale).ticks(d3.max(launch_data, d => d.launches.length));
 
   var yScaleRange=yLinearScale.domain().slice(1).map((d, i)=>d-yLinearScale.domain()[i])
