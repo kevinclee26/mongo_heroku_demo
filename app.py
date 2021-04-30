@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 import pymongo
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify
 
 load_dotenv() # use dotenv to hide sensitive credential as environment variables
 DATABASE_URL=f'mongodb+srv://user:{os.environ.get("password")}'\
