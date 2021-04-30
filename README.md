@@ -167,6 +167,6 @@ Project Link: [https://github.com/kevinclee26/mongo_heroku_demo](https://github.
 [license-url]:  -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/kevin-c-lee26/
-[product-screenshot]: https://github.com/kevinclee26/mongo_heroku_demo/blob/main/static/img/example.png?raw=true
+[product-screenshot]: https://github.com/kevinclee26/mongo_heroku_demo/blob/main/static/img/sample_small.png?raw=true
 [product-url]: https://mongo-heroku-demo.herokuapp.com/
 [heroku-shield]: https://img.shields.io/badge/%E2%86%91_Deploy_to-Heroku-7056bf.svg?style=for-the-badge
